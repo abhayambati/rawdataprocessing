@@ -1,0 +1,16 @@
+# Makes an empty data frame, reads CSV files from a directory
+# transposes the CSV files, and 'rbinds' to the empty data frame
+# stores the resultant CSV file at 'destfile' location
+transpose <- function(directory,destfile, id=413){
+                  df <- data.frame()
+                  file <- list.files(directory, full.names=TRUE)
+                  for(i in id){
+                    
+                  data <- read.csv(file[i])
+                  tdata <- t(data[-1])
+                  colnames(tdata) <- data[[1]]
+                  tdataDF <- as.data.frame(tdata)
+                  df <- rbind(df, tdataDF)
+                  }
+                  write.csv(df, file=destfile)
+                  }
